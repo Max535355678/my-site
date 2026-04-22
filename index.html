@@ -6,46 +6,46 @@
     <style>
         body, html { margin: 0; padding: 0; overflow: hidden; background: #000; font-family: Arial, sans-serif; }
         
-        /* Экран защиты */
         #lock-screen {
             display: flex; height: 100vh; background: #000; color: white;
             align-items: center; justify-content: center; position: fixed; width: 100%; z-index: 1000;
         }
 
-        /* Экран ввода */
         #input-screen {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             height: 100vh; color: white; background: #1a1a1a; position: absolute; width: 100%; z-index: 100;
         }
         input { 
-            padding: 15px; font-size: 18px; border-radius: 10px; border: none; 
-            margin-bottom: 10px; width: 80%; max-width: 300px;
+            padding: 12px; font-size: 16px; border-radius: 8px; border: none; 
+            margin-bottom: 10px; width: 80%; max-width: 250px;
         }
         button {
-            padding: 15px 40px; font-size: 18px; background: #007AFF; color: white;
+            padding: 12px 30px; font-size: 16px; background: #007AFF; color: white;
             border: none; border-radius: 10px; cursor: pointer;
         }
 
-        /* Основной экран */
         #main-screen { display: none; position: relative; width: 100vw; height: 100vh; }
         #bg { width: 100%; height: 100%; object-fit: cover; }
         
+        /* Шрифты уменьшены в 2 раза */
         .label { position: absolute; left: 50px; pointer-events: none; }
-        #text1 { top: 100px; color: black; font-size: 40px; }
-        #text2 { top: 150px; color: black; font-size: 40px; font-weight: bold; }
-        #text3 { top: 200px; color: #969696; font-size: 28px; }
+        #text1 { top: 100px; color: black; font-size: 20px; }
+        #text2 { top: 130px; color: black; font-size: 20px; font-weight: bold; }
+        #text3 { top: 160px; color: #969696; font-size: 14px; }
 
+        /* Объект стал шире вверх (height увеличена) */
         #object {
             position: absolute;
-            top: 300px; /* Высота под текстом */
+            top: 250px; 
             left: 50%;
             transform: translateX(-50%);
             width: 250px; 
-            height: 60px; /* Сжато по вертикали */
+            height: 100px; 
             transition: transform 0.1s linear;
         }
 
-        .rotating { animation: flip 0.8s linear infinite; }
+        /* Анимация на 1 раз */
+        .rotating { animation: flip 0.8s ease-out 1 forwards; }
         @keyframes flip {
             from { transform: translateX(-50%) rotateY(0deg); }
             to { transform: translateX(-50%) rotateY(360deg); }
@@ -54,30 +54,25 @@
 </head>
 <body>
 
-    <!-- Слой блокировки -->
     <div id="lock-screen"><h1>Загрузка...</h1></div>
 
-    <!-- Интерфейс ввода -->
     <div id="input-screen" style="display: none;">
-        <input type="text" id="in1" placeholder="Первый текст">
-        <input type="text" id="in2" placeholder="Второй текст">
-        <input type="text" id="in3" placeholder="Третий текст">
+        <input type="text" id="in1" placeholder="Текст 1 (обычный)">
+        <input type="text" id="in2" placeholder="Текст 2 (жирный)">
+        <input type="text" id="in3" placeholder="Текст 3 (серый)">
         <button onclick="start()">Запустить</button>
     </div>
 
-    <!-- Основной интерфейс -->
     <div id="main-screen">
         <img src="bg.png" id="bg">
         <div id="text1" class="label"></div>
         <div id="text2" class="label"></div>
         <div id="text3" class="label"></div>
-        <img src="object.png" id="object" onclick="this.classList.toggle('rotating')">
+        <img src="object.png" id="object" onclick="runAnimation()">
     </div>
 
     <script>
-        // --- ПРОВЕРКА ПАРОЛЯ ---
-        // Замени слово МОЙ_ПАРОЛЬ на свое
-        const PASS = "1234"; 
+        const PASS = "1234"; // Твой пароль
         
         window.onload = function() {
             let userPass = prompt("Введите доступ:");
@@ -97,6 +92,17 @@
             document.getElementById('input-screen').style.display = 'none';
             document.getElementById('main-screen').style.display = 'block';
         }
+
+        function runAnimation() {
+            const obj = document.getElementById('object');
+            obj.classList.remove('rotating');
+            void obj.offsetWidth; // Магия для перезапуска анимации
+            obj.classList.add('rotating');
+        }
     </script>
 </body>
-</html>
+<ml>/ht
+
+
+
+
