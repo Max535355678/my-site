@@ -1,3 +1,4 @@
+html
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
         }
 
         #input-screen {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            display: none; flex-direction: column; align-items: center; justify-content: center;
             height: 100vh; color: white; background: #1a1a1a; position: absolute; width: 100%; z-index: 100;
         }
         input { 
@@ -27,25 +28,25 @@
         #main-screen { display: none; position: relative; width: 100vw; height: 100vh; }
         #bg { width: 100%; height: 100%; object-fit: cover; }
         
-        /* Шрифты уменьшены в 2 раза */
-        .label { position: absolute; left: 50px; pointer-events: none; }
+        /* Текст смещен влево до 20px */
+        .label { position: absolute; left: 20px; pointer-events: none; }
         #text1 { top: 100px; color: black; font-size: 20px; }
         #text2 { top: 130px; color: black; font-size: 20px; font-weight: bold; }
         #text3 { top: 160px; color: #969696; font-size: 14px; }
 
-        /* Объект стал шире вверх (height увеличена) */
+        /* Объект увеличен */
         #object {
             position: absolute;
             top: 250px; 
             left: 50%;
             transform: translateX(-50%);
-            width: 250px; 
-            height: 100px; 
-            transition: transform 0.1s linear;
+            width: 350px; 
+            height: 140px; 
+            cursor: pointer;
         }
 
-        /* Анимация на 1 раз */
-        .rotating { animation: flip 0.8s ease-out 1 forwards; }
+        /* Скорость вращения уменьшена (2 секунды вместо 0.8) */
+        .rotating { animation: flip 2.0s ease-out 1 forwards; }
         @keyframes flip {
             from { transform: translateX(-50%) rotateY(0deg); }
             to { transform: translateX(-50%) rotateY(360deg); }
@@ -56,7 +57,7 @@
 
     <div id="lock-screen"><h1>Загрузка...</h1></div>
 
-    <div id="input-screen" style="display: none;">
+    <div id="input-screen">
         <input type="text" id="in1" placeholder="Текст 1 (обычный)">
         <input type="text" id="in2" placeholder="Текст 2 (жирный)">
         <input type="text" id="in3" placeholder="Текст 3 (серый)">
@@ -64,24 +65,26 @@
     </div>
 
     <div id="main-screen">
-        <img src="bg.png" id="bg">
+        <img src="bg.png" id="bg" alt="background">
         <div id="text1" class="label"></div>
         <div id="text2" class="label"></div>
         <div id="text3" class="label"></div>
-        <img src="object.png" id="object" onclick="runAnimation()">
+        <img src="object.png" id="object" onclick="runAnimation()" alt="object">
     </div>
 
     <script>
-        const PASS = "1234"; // Твой пароль
+        const PASS = "1234"; 
         
         window.onload = function() {
-            let userPass = prompt("Введите доступ:");
-            if (userPass === PASS) {
-                document.getElementById('lock-screen').style.display = 'none';
-                document.getElementById('input-screen').style.display = 'flex';
-            } else {
-                document.getElementById('lock-screen').innerHTML = "<h1>Доступ закрыт</h1>";
-            }
+            setTimeout(() => {
+                let userPass = prompt("Введите доступ:");
+                if (userPass === PASS) {
+                    document.getElementById('lock-screen').style.display = 'none';
+                    document.getElementById('input-screen').style.display = 'flex';
+                } else {
+                    document.getElementById('lock-screen').innerHTML = "<h1>Доступ закрыт</h1>";
+                }
+            }, 500);
         };
 
         function start() {
@@ -96,12 +99,12 @@
         function runAnimation() {
             const obj = document.getElementById('object');
             obj.classList.remove('rotating');
-            void obj.offsetWidth; // Магия для перезапуска анимации
+            void obj.offsetWidth; 
             obj.classList.add('rotating');
         }
     </script>
 </body>
-<ml>/ht
+</html>
 
 
 
